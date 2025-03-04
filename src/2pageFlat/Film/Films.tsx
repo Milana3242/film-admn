@@ -4,18 +4,27 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 // import { Link } from 'react-router-dom';
-import { Button } from '../../6shared';
+import { Button } from '../../6shared/ui/button';
 import { Loader } from '../../6shared/ui/loader';
-import { fetchFilms } from '../../5entities';
+import { fetchFilms } from '../../5entities/films';
 import { useAppDispatch } from '../../redux/store';
 import { FilmSliceState } from '../../5entities/films/model/types/film';
 import { selectFilmsData } from '../../5entities/films/model/selector/films';
 import { DeleteFilm } from '../../4features/ui/DeleteFilm';
+// import { PatchFilm } from '../../4features/ui/EditFilm';
+import { useNavigate } from 'react-router-dom';
+import { Input } from '../../6shared/ui/input';
 
 export interface IAppProps {}
 
 export function Films({}: IAppProps) {
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
+   function editFilms(id: number) {
+    navigate(`/edit-film/${id}`);
+  }
 
   const getFilms = async () => {
     dispatch(fetchFilms());
@@ -29,9 +38,7 @@ export function Films({}: IAppProps) {
   console.log(status);
   console.log(films);
 
-  //status==='loading? (
-  //   <Loader />
-  // ) :
+
 
   return status === 'loading' ? (
     <Loader />
@@ -91,7 +98,7 @@ export function Films({}: IAppProps) {
                 <div className="flex-shrink-0">
                   <img
                     className="w-[55px]"
-                    src="https://avatars.mds.yandex.net/i?id=607611ea0cea550195ba96f240aed9a3dc57c84f-5887629-images-thumbs&n=13"
+                    src="https://yastatic.net/naydex/yandex-search/T1jw7T154/dad436MP5l/weIS7Pk_qtb8TWUQ1W08N302AYm-Mu6ioGjKO9ABAtvvq_wq7zYSEWk9-rXp5d6PsaNaQJRcocQMTcWLa3zpZdbgVqC4ebCJrAx6RN1uOTVga0KYomjq_7oqlmDED1jWuKGVE5hHMngXDNWWkp6cwPO6RRaeWfWNEwzUtQE"
                     alt="Brand"
                   />
                 </div>
@@ -112,7 +119,16 @@ export function Films({}: IAppProps) {
               </div>
               <div className="flex items-center justify-center p-2.5 xl:p-5">
                 <DeleteFilm id={film.id}></DeleteFilm>
+
+                <div>
+                  <img
+                    onClick={() => editFilms(film.id)}
+                    className="w-[20px] ml-4 cursor-pointer"
+                    src="https://avatars.mds.yandex.net/i?id=e315ad979a20ffe4b586d9ee247f734ed22549df-10933522-images-thumbs&n=13"
+                  ></img>
+                </div>
               </div>
+
             </div>
           ))}
         </div>

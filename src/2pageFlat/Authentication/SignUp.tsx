@@ -1,10 +1,48 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import LogoDark from '../../../public/images/logo/logo-dark.svg';
 import Logo from '../../../public/images/logo/logo.svg';
+import { useForm } from 'react-hook-form';
+import { Input } from '../../6shared/ui/input';
+import { Button } from '../../6shared/ui/button';
+import { useAppDispatch } from '../../redux/store';
+import { signUp } from '../../5entities/auth/model/services/signUp';
+import { useSelector } from 'react-redux';
+import { selectAuthData } from '../../5entities/auth/model/selector/auth';
 
-const SignUp: React.FC = () => {
+export interface IAppProps {}
+
+export function SignUp({}: IAppProps) {
+  const dispatch = useAppDispatch();
+  const navigate=useNavigate()
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    setValue,
+    setError,
+  } = useForm({
+    mode: 'onBlur',
+  });
+
+  const { error } = useSelector(selectAuthData);
+  console.log(error);
+
+  async function onSubmit(item: any) {
+   await dispatch(signUp(item));
+  //  console.log(error===null)
+   setTimeout(()=>{
+    if(error===null){
+      navigate('/films')
+    }
+   },100)
+  }
+
+
+
+
+
   return (
     <>
       <Breadcrumb pageName="Sign Up" />
@@ -154,17 +192,26 @@ const SignUp: React.FC = () => {
                 Sign Up to TailAdmin
               </h2>
 
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Name
                   </label>
                   <div className="relative">
-                    <input
+                    <Input
+                      register={register}
+                      registerOption={{
+                        required: ' Поле обязятельно к заполнению!',
+                      }}
+                      name="name"
                       type="text"
                       placeholder="Enter your full name"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      variant="third"
                     />
+
+                    <div className="font-bold italic text-rose-500 text-sm">
+                      {errors?.name && <p>{errors?.name.message}</p>}
+                    </div>
 
                     <span className="absolute right-4 top-4">
                       <svg
@@ -195,11 +242,23 @@ const SignUp: React.FC = () => {
                     Email
                   </label>
                   <div className="relative">
-                    <input
+                    <Input
+                      register={register}
+                      registerOption={{
+                        required: ' Поле обязятельно к заполнению!',
+                        pattern:{
+                          value:/^[^s@]+@[^s@]+.[^s@]+$/,
+                          message:'Email должен быть корректным!'
+                        }
+                      }}
+                      name="email"
                       type="email"
                       placeholder="Enter your email"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      variant="third"
                     />
+                    <div className="font-bold italic text-rose-500 text-sm">
+                      {errors?.email && <p>{errors?.email.message}</p>}
+                    </div>
 
                     <span className="absolute right-4 top-4">
                       <svg
@@ -226,11 +285,23 @@ const SignUp: React.FC = () => {
                     Password
                   </label>
                   <div className="relative">
-                    <input
+                    <Input
                       type="password"
                       placeholder="Enter your password"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      register={register}
+                      registerOption={{
+                        minLength: {
+                          value: 6,
+                          message: 'Минимально 6 символов!',
+                        },
+                      }}
+                      name="password"
+                      variant="third"
                     />
+
+                    <div className="font-bold italic text-rose-500 text-sm">
+                      {errors?.password && <p>{errors?.password.message}</p>}
+                    </div>
 
                     <span className="absolute right-4 top-4">
                       <svg
@@ -256,15 +327,16 @@ const SignUp: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mb-6">
+                {/* <div className="mb-6">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Re-type Password
                   </label>
                   <div className="relative">
-                    <input
+                    <Input
+                      name="password"
                       type="password"
                       placeholder="Re-enter your password"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      variant="third"
                     />
 
                     <span className="absolute right-4 top-4">
@@ -289,15 +361,17 @@ const SignUp: React.FC = () => {
                       </svg>
                     </span>
                   </div>
+                </div> */}
+
+                <div className="font-bold italic text-rose-500 text-sm">
+                  {error=='User with this email already exists'?'Пользователь с таким email уже зарегестрирован!':''}
                 </div>
 
                 <div className="mb-5">
-                  <input
-                    type="submit"
-                    value="Create account"
-                    className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                  />
+                  <Button variant="third">Создать аккаунт</Button>
                 </div>
+
+
 
                 <button className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50">
                   <span>
@@ -351,6 +425,4 @@ const SignUp: React.FC = () => {
       </div>
     </>
   );
-};
-
-export default SignUp;
+}

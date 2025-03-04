@@ -22,5 +22,5 @@ export enum Status {
 export interface FilmSliceState {
   films: Film[];
   status: Status;
-  error:string|null
+  error: null|undefined|string|SerializedError;
 }

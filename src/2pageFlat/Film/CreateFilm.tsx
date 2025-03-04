@@ -1,30 +1,39 @@
 import * as React from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import SelectGroupOne from '../../components/Forms/SelectGroup/SelectGroupOne';
-import { Button, Input, TextArea } from '../../6shared';
+import { Button } from '../../6shared/ui/button';
+import { TextArea } from '../../6shared/ui/textarea';
+import { Input } from '../../6shared/ui/input';
 import { useForm } from 'react-hook-form';
-import { useAppDispatch } from '../../redux/store';
-import { createFilms, fetchFilms } from '../../5entities';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { createFilms, fetchFilms, patchFilms } from '../../5entities/films';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import {  UploadFileWidget } from '../../3witgets/UploadFile/UploadFileWidget';
+
 // import { UploadFile } from '../../3witgets/UploadFile/upload-file';
 
 export interface IAppProps {}
 
 export function CreateFilm({}: IAppProps) {
   const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   const {
     register,
     formState: { errors },
     handleSubmit,
+    setValue,
   } = useForm();
 
-  function onSubmit(data: any) {
-    dispatch(createFilms(data));
-    // dispatch(fetchFilms());
+  function onSubmit(item: any) {
+    dispatch(createFilms(item));
+    dispatch(fetchFilms());
     // setTimeout(() => navigate('/films'),1000);
     navigate('/films');
   }
+
+
 
   return (
     <>
@@ -47,17 +56,6 @@ export function CreateFilm({}: IAppProps) {
                       name={'title'}
                     />
                   </div>
-
-                  {/* <div className="w-full xl:w-1/2">
-                    <label className="mb-2.5 block text-black dark:text-white">
-                      Last name
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Enter your last name"
-                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                    />
-                  </div> */}
                 </div>
 
                 <div className="mb-4.5">
@@ -99,6 +97,20 @@ export function CreateFilm({}: IAppProps) {
                   ></TextArea>
                 </div>
 
+                {/* <div className="mb-6">
+                  <label className="mb-2.5 block text-black dark:text-white">
+                    Фотография
+                  </label>
+
+                  <Input
+                    placeholder="Добавьте фото фильма"
+                    register={register}
+                    name={'description'}
+                    type="file"
+                    variant="secondary"
+                  ></Input>
+                </div> */}
+
                 {/* <div className="col-span-5 mb-5  mx-auto xl:col-span-2">
                                     <UploadFile
                                         label="Фото"
@@ -110,6 +122,14 @@ export function CreateFilm({}: IAppProps) {
                 {/* <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
                   Send Message
                 </button> */}
+
+                <UploadFileWidget
+                  label="Превью"
+                  labelNote="Желаемое разрешение 500x500 и не более 100кб"
+                  field="image"
+                  setValue={setValue}
+                  errors={errors}
+                />
 
                 <Button variant="secondary">Отправить форму</Button>
               </div>

@@ -4,7 +4,6 @@ import { Film } from '../types/film';
 
 export const createFilms = createAsyncThunk<
   Film[],
-  void,
   { rejectValue: string }
 >('film/addFilm', async (params, { rejectWithValue }) => {
   try {

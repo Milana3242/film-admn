@@ -7,10 +7,15 @@ interface Protected{
 }
 
 const ProtectedRoute:React.FC<Protected> = ({children}) => {
-    const user = useSelector((state:any) => state.user);
-    let location = useLocation();
+    // const user = useSelector((state:any) => state.user);
+    const token = localStorage.getItem('auth');
 
-    if(!user.state.isAuthenticated) {
+
+
+    let location = useLocation();
+    console.log(token)
+
+    if(!token) {
         return <Navigate to="/auth/signin" state={{ from: location}} replace />
     }
  return children

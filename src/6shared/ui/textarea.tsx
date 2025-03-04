@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
+import { Film } from '../../5entities/films';
 
 export interface IAppProps {
     rows:number,
     placeholder:string,
-    register?:UseFormRegister<FieldValues>
+    register?:UseFormRegister<any>
     name?:string
 
 

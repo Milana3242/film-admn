@@ -1,2 +1,0 @@
-export { DarkModeSwitcher } from "./DarkModeSwitcher";
-

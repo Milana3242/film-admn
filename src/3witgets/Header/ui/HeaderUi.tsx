@@ -3,9 +3,9 @@ import DropdownMessage from './DropdownMessage';
 import DropdownNotification from './DropdownNotification';
 import DropdownUser from './DropdownUser';
 import LogoIcon from '../../../../public/images/logo/logo.svg';
-import {DarkModeSwitcher} from '../../../4features/ui/DarkModeSwitcher';
+import {DarkModeSwitcher} from '../../../4features/DarkModeSwitcher';
 import Loop from '../../../6shared/icons/loop';
-import { Input } from '../../../6shared';
+import { Input } from '../../../6shared/ui/input';
 
 export const HeaderUi = (props: {
   sidebarOpen: string | boolean | undefined;

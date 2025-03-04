@@ -1,16 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Film } from '../types/film';
-import { IDeleteFilmProps } from '../../../../4features/ui/DeleteFilm';
 
-export const deleteFilms = createAsyncThunk<
-Film[],
-
+export const fetchFilmById = createAsyncThunk<
+  Film,
+  number,
   { rejectValue: string }
->('film/deleteFilm', async (params, { rejectWithValue }) => {
+>('film/fetchFilmByIdStatus', async (params, { rejectWithValue }) => {
   try {
-    const { data } = await axios.delete<Film[]>(
-        `https://d5caef6911b3.vps.myjino.ru/films/${params}`
+    const { data } = await axios.get<Film>(
+      `https://d5caef6911b3.vps.myjino.ru/films/${params}`,
     );
 
     console.log('sss')

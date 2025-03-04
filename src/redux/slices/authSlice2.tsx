@@ -10,7 +10,7 @@ const initialState = {
   },
 };
 
-const authSlice = createSlice({
+const authSlice2 = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -20,6 +20,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setIsFetching } = authSlice.actions;
+export const { setIsFetching } = authSlice2.actions;
 
-export default authSlice.reducer;
+export default authSlice2.reducer;

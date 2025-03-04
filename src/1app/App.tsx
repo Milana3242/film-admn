@@ -3,8 +3,8 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Loader from '../common/Loader';
 import PageTitle from '../components/PageTitle';
-import SignIn from '../2pageFlat/Authentication/SignIn';
-import SignUp from '../2pageFlat/Authentication/SignUp';
+import { SignIn } from '../2pageFlat/Authentication/SignIn';
+import { SignUp } from '../2pageFlat/Authentication/SignUp';
 // import Calendar from '../pages/Calendar';
 // import Chart from '../pages/Chart';
 import ECommerce from '../pages/Dashboard/ECommerce';
@@ -21,6 +21,15 @@ import { Films } from '../2pageFlat/Film/Films';
 import { CreateFilm } from '../2pageFlat/Film/CreateFilm';
 import { useSelector } from 'react-redux';
 import { selectFilmsData } from '../5entities/films/model/selector/films';
+import { EditFilm } from '../2pageFlat/Film/EditFilm';
+import { Subtitles } from '../2pageFlat/Subtitles/Subtitles';
+import { CreateSubtitles } from '../2pageFlat/Subtitles/CreateSubtitles';
+import { SubtitlesLine } from '../2pageFlat/Subtitles/SubtitlesLine';
+import { Users } from '../2pageFlat/Users/Users';
+import { Lessons } from '../2pageFlat/Lessons/Lessons';
+import { Progress } from '../2pageFlat/Progress/Progress';
+import { Words } from '../2pageFlat/Words/Words';
+import { LessonWords } from '../2pageFlat/Lessons/LessonWords';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -34,12 +43,10 @@ function App() {
   // }, [pathname]);
 
   useEffect(() => {
-
-setTimeout(()=>setLoading(false),1000)
-
+    setTimeout(() => setLoading(false), 1000);
   }, []);
 
-  return loading? (
+  return loading ? (
     <Loader />
   ) : (
     // <DefaultLayout>
@@ -169,12 +176,15 @@ setTimeout(()=>setLoading(false),1000)
             </>
           }
         />
+
         <Route
           path="/films"
           element={
             <>
-              <PageTitle title="Tables | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <Films />
+              <ProtectedRoute>
+                <PageTitle title="Tables | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <Films />
+              </ProtectedRoute>
             </>
           }
         />
@@ -182,8 +192,21 @@ setTimeout(()=>setLoading(false),1000)
           path="/create-film"
           element={
             <>
-              <PageTitle title="Form Elements | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <CreateFilm />
+              <ProtectedRoute>
+                <PageTitle title="Form Elements | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <CreateFilm />
+              </ProtectedRoute>
+            </>
+          }
+        />
+        <Route
+          path="/edit-film/:id"
+          element={
+            <>
+              <ProtectedRoute>
+                <PageTitle title="Form Elements | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <EditFilm />
+              </ProtectedRoute>
             </>
           }
         />
@@ -191,8 +214,109 @@ setTimeout(()=>setLoading(false),1000)
           path="/forms/form-elements"
           element={
             <>
-              <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <FormLayout />
+              <ProtectedRoute>
+                <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <FormLayout />
+              </ProtectedRoute>
+            </>
+          }
+        />
+        <Route
+          path="/subtitles"
+          element={
+            <>
+              <ProtectedRoute>
+                <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <Subtitles />
+              </ProtectedRoute>
+            </>
+          }
+        />
+        <Route
+          path="/subtitles/:id"
+          element={
+            <>
+              <ProtectedRoute>
+                <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <SubtitlesLine />
+              </ProtectedRoute>
+            </>
+          }
+        />
+        <Route
+          path="/create-sub"
+          element={
+            <>
+              <ProtectedRoute>
+                <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <CreateSubtitles />
+              </ProtectedRoute>
+            </>
+          }
+        />
+        <Route
+          path="/edit-sub/:id"
+          element={
+            <>
+              <ProtectedRoute>
+                <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <CreateSubtitles />
+              </ProtectedRoute>
+            </>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <>
+              <ProtectedRoute>
+                <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <Users />
+              </ProtectedRoute>
+            </>
+          }
+        />
+        <Route
+          path="/lessons"
+          element={
+            <>
+              {/* <ProtectedRoute> */}
+                <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <Lessons />
+              {/* </ProtectedRoute> */}
+            </>
+          }
+        />
+        <Route
+          path="/lessons/:id"
+          element={
+            <>
+              {/* <ProtectedRoute> */}
+                <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <LessonWords />
+              {/* </ProtectedRoute> */}
+            </>
+          }
+        />
+        <Route
+          path="/progress"
+          element={
+            <>
+              {/* <ProtectedRoute> */}
+                <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <Progress />
+              {/* </ProtectedRoute> */}
+            </>
+          }
+        />
+        <Route
+          path="/words"
+          element={
+            <>
+              {/* <ProtectedRoute> */}
+                <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <Words />
+              {/* </ProtectedRoute> */}
             </>
           }
         />

@@ -1,5 +1,5 @@
-import { Checkbox } from '../../6shared';
-import useColorMode from '../../6shared/hooks/useColorMode';
+import { Checkbox } from '../6shared/ui/checkbox';
+import useColorMode from '../6shared/hooks/useColorMode';
 
 export const DarkModeSwitcher = () => {
   const [colorMode, setColorMode] = useColorMode();
@@ -61,4 +61,3 @@ export const DarkModeSwitcher = () => {
     </li>
   );
 };
-
