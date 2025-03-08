@@ -1,17 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import LogoDark from '../../../public/images/logo/logo-dark.svg';
 import Logo from '../../../public/images/logo/logo.svg';
 import { Input } from '../../6shared/ui/input';
 import { Button } from '../../6shared/ui/button';
 import { useAppDispatch } from '../../redux/store';
+import { useSelector } from 'react-redux';
+import { selectAuthData } from '../../5entities/auth/model/selector/auth';
 import { useForm } from 'react-hook-form';
 import { signIn } from '../../5entities/auth';
 
 export function SignIn (){
 
-  const dispatch=useAppDispatch()
+  const dispatch = useAppDispatch();
+  const navigate=useNavigate()
+
+
   const {
     register,
     formState: { errors },
@@ -19,8 +24,16 @@ export function SignIn (){
     setValue,
   } = useForm();
 
+  const { error } = useSelector(selectAuthData);
+  console.log(error);
+
   function onSubmit(item:any){
     dispatch(signIn(item))
+    setTimeout(()=>{
+      if(error===null){
+        navigate('/films')
+      }
+     },1000)
   }
 
   console.log(errors)

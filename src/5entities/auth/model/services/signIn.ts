@@ -10,9 +10,14 @@ SignIn,
 
   { rejectValue: string }
 >('sign/SignInStatus', async (params, { rejectWithValue }) => {
+  const token=localStorage.getItem('auth')
   try {
     const { data } = await axios.post(
-      `https://d5caef6911b3.vps.myjino.ru/auth/login`,params
+      `https://d5caef6911b3.vps.myjino.ru/auth/login`,  params, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
     );
 
     // console.log(localStorage.getItem('auth'))
