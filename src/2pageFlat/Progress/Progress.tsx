@@ -15,7 +15,7 @@ export function Progress(props: IAppProps) {
   const dispatch = useAppDispatch();
   const { progress, status } = useSelector(selectProgressData);
 
-  const getProgress= async () => {
+  const getProgress = async () => {
     dispatch(fetchProgress());
   };
 
@@ -40,7 +40,7 @@ export function Progress(props: IAppProps) {
               </div>
               <div className="p-2.5 text-center xl:p-5">
                 <h5 className="text-sm font-medium uppercase xsm:text-base">
-
+                  type
                 </h5>
               </div>
 
@@ -50,10 +50,14 @@ export function Progress(props: IAppProps) {
                 </h5>
               </div>
               <div className="p-2.5 text-center xl:p-5">
-                <h5 className="text-sm font-medium uppercase xsm:text-base">WordId</h5>
+                <h5 className="text-sm font-medium uppercase xsm:text-base">
+                  createdAt
+                </h5>
               </div>
               <div className="p-2.5 text-center xl:p-5">
-                <h5 className="text-sm font-medium uppercase xsm:text-base">SubLineId</h5>
+                <h5 className="text-sm font-medium uppercase xsm:text-base">
+                  updatedAt
+                </h5>
               </div>
             </div>
           </div>
@@ -80,19 +84,18 @@ export function Progress(props: IAppProps) {
               </div>
 
               <div className="flex items-center justify-center text-2xl p-2.5 xl:p-5">
-                <p className="text-black  dark:text-white">{progres.language}</p>
+                <p className="text-black  dark:text-white">{progres.type}</p>
               </div>
 
               <div className="flex items-center justify-center p-2.5 xl:p-5">
                 <p className="text-meta-3">{progres.id}</p>
               </div>
               <div className="flex items-center justify-center p-2.5 xl:p-5">
-                <p className="text-meta-3">{progres.word.id}</p>
+                <p className="text-meta-3">{progres.createdAt}</p>
               </div>
               <div className="flex items-center justify-center p-2.5 xl:p-5">
-                <p className="text-meta-3">{progres.subtitleLine.id}</p>
+                <p className="text-meta-3">{progres.updatedAt}</p>
               </div>
-
             </div>
           ))}
         </div>

@@ -33,7 +33,7 @@ export function Lessons(props: IAppProps) {
             <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
               <div className="p-2.5 xl:p-5">
                 <h5 className="text-sm font-medium uppercase xsm:text-base">
-                  Название
+                  Название фильма
                 </h5>
               </div>
               <div className="p-2.5 text-center xl:p-5">
@@ -69,8 +69,8 @@ export function Lessons(props: IAppProps) {
                     alt="Brand"
                   />
                 </div>
-                <p className="hidden text-black dark:text-white sm:block">
-                  {lesson.title}
+                <p className="hidden text-black dark:text-white  text-2xl sm:block">
+                  {lesson.film.title}
                 </p>
               </div>
 
@@ -84,7 +84,7 @@ export function Lessons(props: IAppProps) {
               <div className="flex items-center justify-center p-2.5 xl:p-5">
                 <p className="text-meta-3"></p>
               </div>
-              <div className="flex items-center justify-center  p-2.5 xl:p-5">
+              <div className="flex items-center justify-center   p-2.5 xl:p-5">
                 <DeleteLesson id={lesson.id}></DeleteLesson>
               </div>
             </div>
